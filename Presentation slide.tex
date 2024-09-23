@@ -1,0 +1,269 @@
+\documentclass[11pt,aspectratio=43,xcolor={dvipsnames},notheorems]{beamer}
+
+%%%%%%%Begin thai template%%%%%%%
+\usepackage[no-math]{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\XeTeXlinebreaklocale "th"
+\XeTeXlinebreakskip = 0pt plus 0.5pt
+\defaultfontfeatures{Mapping=tex-text} 
+\newfontfamily{\thaifont}[Path = ./Header/Fonts/,BoldFont={THSarabunNew Bold.ttf},ItalicFont={THSarabunNew Italic.ttf},BoldItalicFont={THSarabunNew BoldItalic.ttf},Scale=MatchLowercase]{THSarabunNew.ttf}
+\newfontfamily{\englishfont}[Path = ./Header/Fonts/,BoldFont={cmunbx.ttf},ItalicFont={cmunti.ttf},BoldItalicFont={cmunbi.ttf},Scale=MatchLowercase]{cmunrm.ttf}
+\usepackage[Latin,Thai]{ucharclasses}
+\setTransitionTo{Thai}{\thaifont}
+\setTransitionFrom{Thai}{\englishfont}
+%%%%%%%end thai template%%%%%%%
+\usepackage{setspace}
+\setstretch{1.1}
+% \setlength{\parindent}{2em}
+%\setlength{\emergencystretch}{2em}
+%สำหรับการใช้ฟ้อนThai-Eng%
+
+\usetheme{PaloAlto}
+%\usecolortheme{orchid}
+\usefonttheme{serif}
+ 
+
+% \definecolor{msl}{RGB}{0,119,182}
+\definecolor{msl}{HTML}{E48F45}
+\definecolor{light}{HTML}{F5CCA0}
+% \definecolor{msl}{HTML}{F0997D}
+% \definecolor{light}{HTML}{FFC3A1}
+
+\definecolor{blueblack1}{HTML}{003366}
+\definecolor{blueblack2}{RGB}{0,0,80}
+% \usecolortheme[RGB={179,157,219}]{structure}
+\usecolortheme[named=msl]{structure}
+
+% \setbeamersize{sidebar width left=2cm}
+\setbeamercolor{frametitle}{bg=msl!20!msl}
+\setbeamercolor{sidebar}{bg=msl}
+\setbeamercolor{title in sidebar}{fg=white}
+\colorlet{titleright}{light}
+\colorlet{titlemid}{msl}
+\colorlet{titleleft}{msl}
+
+
+%% (Main) https://tex.stackexchange.com/questions/300533/shading-a-frame-title-in-paloalto-beamer
+%% https://tex.stackexchange.com/questions/226691/how-can-i-have-a-horizontally-shaded-frametitle-in-beamer
+%% https://tex.stackexchange.com/questions/174545/how-can-i-have-a-horizontally-shaded-block-title-in-beamer
+%% https://tex.stackexchange.com/questions/309945/horizontally-shaded-title-in-beamer
+
+%%% ขนาด sidebar ด้านซ้าย %%% 
+% \makeatletter
+% \setlength\beamer@sidebarwidth{1.5cm}
+% \makeatother
+
+%%% กรอบหน้า Title %%% 
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true,shadow=true]
+
+%%% กรอบหน้าอื่น ๆ %%% 
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+\makeatletter
+
+\pgfdeclarehorizontalshading[titleleft,titleright]{beamer@frametitleshade}{\paperheight}{%
+    color(\beamer@sidebarwidth)=(titlemid);%
+    color(\paperwidth)=(titleright)%
+}
+
+\pgfdeclareverticalshading[titleleft,titleright]{beamer@sidebar}{\beamer@sidebarwidth}{%
+    color(0pt)=(titleright);%
+    color(\sidebarheight)=(titleleft)%
+}
+
+%%% Shade in Sidebar ด้านบน %%%
+\setbeamertemplate{headline}{%
+    \begin{beamercolorbox}[wd=\paperwidth]{frametitle}%
+        \ifx\beamer@sidebarside\beamer@lefttext%
+        \else%
+        \hfill%
+        \fi%
+        \ifdim\beamer@sidebarwidth>0pt%  
+        \usebeamercolor[bg]{logo}%
+        \begin{pgfpicture}{0pt}{0pt}{\paperwidth}{\beamer@headheight}%
+            \usebeamercolor{frametitle right}%
+            \pgfpathrectangle{\pgfpointorigin}{\pgfpoint{\paperwidth}{\beamer@headheight}}%
+            \pgfusepath{clip}%
+            \pgftext[left,base]{\pgfuseshading{beamer@frametitleshade}}%
+        \end{pgfpicture}%
+        \vskip-\beamer@headheight%
+        \vrule width\beamer@sidebarwidth height \beamer@headheight%
+        \hskip-\beamer@sidebarwidth%
+        \hbox to \beamer@sidebarwidth{\hss\vbox to
+            \beamer@headheight{\vss\hbox{\color{fg}\insertlogo}\vss}\hss}%
+        \else%
+        \vrule width0pt height \beamer@headheight%  
+        \fi%
+    \end{beamercolorbox}%
+}
+
+%%% Shade in Sidebar ด้านซ้าย %%%
+\setbeamertemplate{sidebar canvas left}{%
+    \pgfuseshading{beamer@sidebar}%
+}
+
+\makeatother
+
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usetikzlibrary{arrows,angles,quotes}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\graphicspath{{.}}
+\setbeamercovered{transparent=5}
+\usepackage{multicol}
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
+%\logo{\includegraphics[height=1cm]{logo2.png}}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=blue
+    }
+
+% \usepackage{bibentry}
+\usepackage{booktabs} % Allows the use of \toprule, 
+
+
+\title{The Fermat-Kraitcheik Factorization Method}
+% \subtitle{for SCMA 490 Seminar}
+\author[Krittapas N.]{Krittapas Ngammuengman 6305146}
+\date{\today}
+
+% math mode package %
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+% theoremstyle %
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{definition}{บทนิยาม}[]
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[]
+\newtheorem{lemma}[theorem]{บทตั้ง}
+\newtheorem{proposition}[theorem]{ทฤษฎีบทประกอบ}
+\newtheorem{corollary}[theorem]{บทแทรก}
+\newtheorem{observation}{ข้อสังเกต}[]
+
+\theoremstyle{remark}
+\newtheorem{example}{Example}
+\newtheorem{exercise}{แบบฝึกหัด}
+\newtheorem*{remark}{Remark}
+% \newtheorem{note}{บันทึก}
+\setbeamertemplate{theorems}[numbered]
+% \setbeamertemplate{theorems}[ams style] 
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\DeclareMathOperator{\conv}{conv}
+
+\usepackage{animate}
+\setbeamertemplate{enumerate items}[default]
+
+\begin{document}
+\nocite{*}
+\maketitle
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+\section{Introduction}
+\begin{frame}{Introduction}
+\begin{example}
+    Find the prime factorization of 2013.
+\end{example}
+\pause
+Because $44<\sqrt{2023}<45$, it is enough to examine the primes $2,3,5,7,11,13,17,19,23,29,31,37,41,43$.\\
+We have
+\vspace{-1\baselineskip}
+    \begin{align*}
+        2023&=7\times 289\\
+        &=7\times 17\times 17.
+    \end{align*}
+\end{frame}
+\section{Fermat Factorization}
+\begin{frame}{Fermat Factorization}
+    \begin{theorem}[Fermat Factorization]
+        If $n$ is an odd positive integer, then there is a one-to-one correspondence between factorizations of $n$ into two positive integers and differences of two squares that equal $n$. That is,
+        $$n=ab=s^2-t^2$$
+    \end{theorem}
+\end{frame}
+\begin{frame}[allowframebreaks,t]{Proof}
+    Suppose that $n$ be an odd positive integer with $n=ab$, whenever $a\ge b\ge 1$. Notice that
+    \begin{align*}
+        n&=ab\\
+        &=\left(\dfrac{a+b}{2}+\dfrac{a-b}{2}\right)\left(\dfrac{a+b}{2}-\dfrac{a-b}{2}\right)\\
+        &=\left(\dfrac{a+b}{2}\right)^2-\left(\dfrac{a-b}{2}\right)^2
+    \end{align*}
+    We set $s=\left(\dfrac{a+b}{2}\right)$ and $t=\left(\dfrac{a-b}{2}\right)$ are both integers because $a$ and $b$ are both odd.\vspace{2\baselineskip}\\
+    Conversely, assume that $n=s^2-t^2$ where $s,t\in\N$.\\
+    Then it is clearly that $n$ can be factored as
+    $$n=s^2-t^2=(s-t)(s+t).$$
+    Then we choose $a=s+t$ and $b=s-t$.\\
+    Moreover, because $n$ is odd integer, then $a$ and $b$\\
+    are themselves odd.\hfill$\square$
+    % To show that one-to-one correspondence,\\
+    % we let a function $f:\{(a,b)\in\N^2\,|\,a,b \text{ be odd}\}\to\N^2$ \\
+    % such that 
+    % $$f(a,b)=\left(\dfrac{a+b}{2}\right)^2-\left(\dfrac{a-b}{2}\right)^2$$
+    % Suppose that $f(a_1,b_1)=f(a_2,b_2)$\\
+    % It's clearly to show $a_1=a_2$ and $b_1=b_2$
+\end{frame}
+\section{The Algorithm}
+\begin{frame}{The Algorithm}
+To search for possible $x$ and $y$ satisfying the equation 
+$$n=s^2-t^2$$
+\vspace{-1.5\baselineskip}
+    \begin{enumerate}
+        \item We write $s^2-n=t^2$.
+        \item Determining the smallest integer $k^2\ge n$.
+        \item We search for a square among the sequence of integers
+        $$k^2-n,\,(k+1)^2-n,\,(k+2)^2-n,\,\ldots$$
+    \end{enumerate}
+\vspace{-0.5\baselineskip}
+\begin{remark}
+    It may be necessary to check as many as $\frac{(n+1)}{2}-\lfloor\sqrt{n}\rfloor$ integers to
+determine whether they are perfect squares.
+\end{remark}
+\end{frame}
+\section{Example}
+\begin{frame}{Example}
+    \begin{example}
+        Using the Fermat factorization method, factor the 2013.
+    \end{example}
+    \pause
+    We find that $44<\sqrt{2013}<45$, then it suffices to consider values of $k^2-2013$ for those $k$ that satisfy the inequality $45\le k<\dfrac{(2013+1)}{2}=1007$. The calculations begin \\as follows:
+    \vspace{-0.5\baselineskip}
+    \begin{align*}
+        45^2-2013&=2025-2013=12\\
+        46^2-2013&=2116-2013=103\\
+        47^2-2013&=2209-2013=196=14^2
+    \end{align*}\vspace{-1.5\baselineskip}\\
+    And then $2013=47^2-14^2=(47+14)(47-14)=61\times 33.$
+\end{frame}
+\begin{frame}{Example}
+\begin{figure}
+    \centering
+    % \includegraphics[scale=0.3]{qrcode_drive.google.com (1).png}
+    \includegraphics[width=0.5\linewidth]{Figure/Final Flash.png}
+    \caption{\href{https://docs.google.com/spreadsheets/d/1lInRBG6kQhh8O2SUpPTJ9NZ_3vZ3i2rk4NBUNAxkiGA/edit}{Fermat's Factorization in spreadsheets}}
+\end{figure}
+\end{frame}
+\begin{frame}{References}
+\def\newblock{}
+\bibliographystyle{plain}
+\bibliography{SCMA350Reference}
+\end{frame}
+\end{document}
