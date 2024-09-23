@@ -1,38 +1,14 @@
 \documentclass[11pt,aspectratio=43,xcolor={dvipsnames},notheorems]{beamer}
 
-%%%%%%%Begin thai template%%%%%%%
-\usepackage[no-math]{fontspec}
-\usepackage{xunicode}
-\usepackage{xltxtra}
-\XeTeXlinebreaklocale "th"
-\XeTeXlinebreakskip = 0pt plus 0.5pt
-\defaultfontfeatures{Mapping=tex-text} 
-\newfontfamily{\thaifont}[Path = ./Header/Fonts/,BoldFont={THSarabunNew Bold.ttf},ItalicFont={THSarabunNew Italic.ttf},BoldItalicFont={THSarabunNew BoldItalic.ttf},Scale=MatchLowercase]{THSarabunNew.ttf}
-\newfontfamily{\englishfont}[Path = ./Header/Fonts/,BoldFont={cmunbx.ttf},ItalicFont={cmunti.ttf},BoldItalicFont={cmunbi.ttf},Scale=MatchLowercase]{cmunrm.ttf}
-\usepackage[Latin,Thai]{ucharclasses}
-\setTransitionTo{Thai}{\thaifont}
-\setTransitionFrom{Thai}{\englishfont}
-%%%%%%%end thai template%%%%%%%
-\usepackage{setspace}
-\setstretch{1.1}
-% \setlength{\parindent}{2em}
-%\setlength{\emergencystretch}{2em}
-%สำหรับการใช้ฟ้อนThai-Eng%
-
 \usetheme{PaloAlto}
 %\usecolortheme{orchid}
 \usefonttheme{serif}
- 
 
-% \definecolor{msl}{RGB}{0,119,182}
 \definecolor{msl}{HTML}{E48F45}
 \definecolor{light}{HTML}{F5CCA0}
-% \definecolor{msl}{HTML}{F0997D}
-% \definecolor{light}{HTML}{FFC3A1}
 
 \definecolor{blueblack1}{HTML}{003366}
 \definecolor{blueblack2}{RGB}{0,0,80}
-% \usecolortheme[RGB={179,157,219}]{structure}
 \usecolortheme[named=msl]{structure}
 
 % \setbeamersize{sidebar width left=2cm}
@@ -42,12 +18,6 @@
 \colorlet{titleright}{light}
 \colorlet{titlemid}{msl}
 \colorlet{titleleft}{msl}
-
-
-%% (Main) https://tex.stackexchange.com/questions/300533/shading-a-frame-title-in-paloalto-beamer
-%% https://tex.stackexchange.com/questions/226691/how-can-i-have-a-horizontally-shaded-frametitle-in-beamer
-%% https://tex.stackexchange.com/questions/174545/how-can-i-have-a-horizontally-shaded-block-title-in-beamer
-%% https://tex.stackexchange.com/questions/309945/horizontally-shaded-title-in-beamer
 
 %%% ขนาด sidebar ด้านซ้าย %%% 
 % \makeatletter
